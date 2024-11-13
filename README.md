@@ -1,1 +1,2 @@
-# PolyCard-A-Learned-Cardinality-Estimator-for-Intersection-Queries-on-Spatial-Polygons
+# Introduction
+This repository provides the source code an cardinality estimation solution for polygons
