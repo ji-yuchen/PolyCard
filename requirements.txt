@@ -1,0 +1,16 @@
+# PolyCard runtime dependencies.
+#
+# Minimal install (cleaning, transformation, training, evaluation):
+#     pip install -r requirements.txt
+#
+# The Shapely-based ground truth also needs `shapely`; psycopg is only
+# needed if you drive PostGIS from Python instead of psql.
+
+numpy>=1.24
+torch>=2.0
+pyyaml>=6.0
+shapely>=2.0
+
+# Optional
+psycopg2-binary>=2.9 # only for driving PostGIS from Python
+pytest>=7.0          # optional; tests also run with `python -m unittest`

@@ -1,0 +1,14 @@
+# Line endings.
+#
+# Shell scripts must keep LF: a CRLF file executed on Linux/macOS fails with
+# "/bin/bash^M: bad interpreter".  Windows batch files need CRLF instead.
+# Everything else normalizes to LF in the repository.
+*.sh   text eol=lf
+*.py   text eol=lf
+*.md   text eol=lf
+*.yaml text eol=lf
+*.yml  text eol=lf
+*.cff  text eol=lf
+*.txt  text eol=lf
+*.tsv  text eol=lf
+*.bat  text eol=crlf

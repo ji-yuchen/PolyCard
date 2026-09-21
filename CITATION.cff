@@ -1,0 +1,57 @@
+cff-version: 1.2.0
+message: >-
+  If you use this software, please cite the paper below and this repository.
+title: "PolyCard: A Learned Cardinality Estimator for Intersection Queries on Spatial Polygons"
+abstract: >-
+  PolyCard is a learned cardinality estimator for intersection queries on
+  spatial polygons. It transforms variable-sized polygons into fixed-sized
+  vectors by zone-aware adaptive sampling and trains an MLP stack with a
+  q-error loss on generated training queries whose cardinalities are evenly
+  distributed.
+type: software
+authors:
+  - family-names: "Ji"
+    given-names: "Yuchen"
+    affiliation: "Osaka University"
+  - family-names: "Amagata"
+    given-names: "Daichi"
+    affiliation: "Osaka University"
+  - family-names: "Sasaki"
+    given-names: "Yuya"
+    affiliation: "Osaka University"
+  - family-names: "Hara"
+    given-names: "Takahiro"
+    affiliation: "Osaka University"
+repository-code: "https://github.com/ji-yuchen/PolyCard"
+url: "https://link.springer.com/article/10.1007/s10844-025-00921-z"
+keywords:
+  - cardinality estimation
+  - query optimization
+  - spatial polygon
+  - machine learning
+license: MIT
+
+preferred-citation:
+  type: article
+  title: "PolyCard: A learned cardinality estimator for intersection queries on spatial polygons"
+  authors:
+    - family-names: "Ji"
+      given-names: "Yuchen"
+      affiliation: "Osaka University"
+    - family-names: "Amagata"
+      given-names: "Daichi"
+      affiliation: "Osaka University"
+    - family-names: "Sasaki"
+      given-names: "Yuya"
+      affiliation: "Osaka University"
+    - family-names: "Hara"
+      given-names: "Takahiro"
+      affiliation: "Osaka University"
+  journal: "Journal of Intelligent Information Systems"
+  volume: 63
+  issue: 3
+  start: 873
+  end: 891
+  year: 2025
+  doi: "10.1007/s10844-025-00921-z"
+  url: "https://link.springer.com/article/10.1007/s10844-025-00921-z"

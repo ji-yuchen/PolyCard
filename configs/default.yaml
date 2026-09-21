@@ -1,0 +1,106 @@
+# PolyCard default configuration.
+#
+# Every script in scripts/ accepts --config; values below are the defaults
+# and match the settings used for the paper's experimental section.
+
+# ---------------------------------------------------------------------------
+# Datasets (OSM "ways" dumps, https://spatialhadoop.cs.umn.edu/datasets.html)
+# ---------------------------------------------------------------------------
+datasets:
+  cemetery:
+    raw: data/raw/cemetery
+    size: 190000          # number of polygons, for the balance thresholds
+    avg_vertices: 10.3
+  sports:
+    raw: data/raw/sports
+    size: 1800000
+    avg_vertices: 11.3
+  parks:
+    raw: data/raw/parks
+    size: 10000000
+    avg_vertices: 35.5
+  buildings:
+    raw: data/raw/buildings
+    size: 115000000
+    avg_vertices: 7.0
+
+# Independent source of real polygons used to seed query generation.
+# The paper draws query polygons from the OSM `postal_codes` extract so
+# that queries are not copies of the indexed data.  Leave empty to sample
+# from the queried dataset itself.
+query_source: ""
+query_source_clean: data/derived/postal_codes_clean.tsv
+
+# ---------------------------------------------------------------------------
+# Cleaning (polycard.clean)
+# ---------------------------------------------------------------------------
+clean:
+  keep_types: [POLYGON]   # MULTIPOLYGON / LINESTRING / GEOMETRYCOLLECTION dropped
+  min_vertices: 4
+
+# ---------------------------------------------------------------------------
+# Query generation (polycard.augment)
+# ---------------------------------------------------------------------------
+generation:
+  num_train_queries: 1000000
+  num_test_queries: 1000
+  seed: 0
+  # Relative weights of the three augmentations; null = uniform.
+  augmentation_weights:
+    perturbation: 1.0
+    reflection: 1.0
+    shifting: 1.0
+
+# ---------------------------------------------------------------------------
+# Featurization (polycard.transform / polycard.featurize)
+# ---------------------------------------------------------------------------
+featurize:
+  num_vertices: 10        # n in Algorithm 1 (Fig. 9 studies 4 / 10 / 25)
+  method: adaptive        # adaptive | uniform_sample | mbr | interp
+  # Fixed global bounds used for min-max normalization (degrees).
+  norm_origin: [-177.0, -55.0]
+  norm_span: [357.0, 130.0]
+
+# ---------------------------------------------------------------------------
+# Training-data balancing (scripts/build_training_set.py)
+# ---------------------------------------------------------------------------
+balance:
+  enabled: true
+  drop_zero_cardinality: true
+  num_buckets: 4          # log-space buckets over the non-zero cardinalities
+  target: min             # min | mean | <integer>
+
+# ---------------------------------------------------------------------------
+# Model + training (polycard.model / polycard.train)
+# ---------------------------------------------------------------------------
+model:
+  hid_units: 256
+
+train:
+  epochs: 100
+  batch_size: 128
+  lr: 0.001
+  lr_gamma: 0.97
+  eval_every: 2
+  label_eps: 1.02         # log(card + eps)
+  device: auto            # auto | cpu | cuda
+  seed: 0
+
+# ---------------------------------------------------------------------------
+# Evaluation
+# ---------------------------------------------------------------------------
+evaluate:
+  batch_size: 1024
+  percentiles: [25, 50, 75, 95, 99]
+
+# ---------------------------------------------------------------------------
+# Baselines
+# ---------------------------------------------------------------------------
+baselines:
+  postgresql:
+    srid: 4326
+    # PostgreSQL does not expose estimation time; planning time is used as
+    # a proxy, as in the paper.
+    use_planning_time: true
+  cdhistogram:
+    bucket_size: 10000

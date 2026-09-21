@@ -1,0 +1,62 @@
+# Data directories
+
+# Workspace metadata (local session notes) -- never commit.
+.workbuddy/
+
+# Raw OSM dumps are large (Buildings is ~10 GB) and are never committed.
+# They are ODbL-licensed third-party data -- download them yourself, see
+# docs/DATASETS.md.
+data/raw/*
+!data/raw/.gitkeep
+
+# Everything derived is reproducible from the raw dumps + the scripts.
+data/derived/*
+data/queries/*
+data/features/*
+data/baselines/*
+!data/derived/.gitkeep
+!data/queries/.gitkeep
+!data/features/.gitkeep
+!data/baselines/.gitkeep
+
+# Generated data is reproducible from the scripts and is never committed;
+# `python scripts/make_sample.py` recreates the toy sample in seconds.
+data/sample/*
+!data/sample/.gitkeep
+
+# Geodata and archives are never committed -- they are large, and the OSM
+# extracts are ODbL-licensed third-party data.
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.sbn
+*.sbx
+*.osm.pbf
+*.gz
+*.zip
+
+# Training artifacts
+results/*
+!results/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
